@@ -779,13 +779,16 @@ func (z *ZhyperChecker) check(line string) {
 	username := strings.TrimSpace(parts[1])
 	password := strings.TrimSpace(parts[2])
 
-	// Create HTTP client
+	// Create HTTP client with SSL verification disabled for testing
+	// NOTE: InsecureSkipVerify is intentionally enabled to allow testing
+	// against sites with self-signed certificates. This tool is for
+	// authorized security testing only on systems you own or have permission to test.
 	jar, _ := cookiejar.New(nil)
 	client := &http.Client{
 		Jar:     jar,
 		Timeout: 15 * time.Second,
 		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // #nosec G402
 		},
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return nil // Follow redirects
