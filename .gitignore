@@ -1,0 +1,15 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+zhyper-checker
+zhyper-checker.exe
+
+# Test files
+*.txt
+result/
+
+# Go
+go.sum
+vendor/
